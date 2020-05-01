@@ -9,6 +9,16 @@ import warnings
 
 import torch
 
+# setup devices and args
+parser = argparse.ArgumentParser()
+parser.add_argument('--gpu', type=int, default=0) # int for validation
+parser.add_argument('--no-gpu', action='store_true')
+parser.add_argument('--env-type', default='gridworld_varibad')
+args, rest_args = parser.parse_known_args()
+os.environ['ENABLE_GPU'] = "0" if args.no_gpu else "1"
+os.environ["GPU_ID"] = str(args.gpu)
+
+
 # get configs
 from config.gridworld import \
     args_grid_oracle, args_grid_belief_oracle, args_grid_rl2, args_grid_varibad
@@ -21,10 +31,7 @@ from learner import Learner
 from metalearner import MetaLearner
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--env-type', default='gridworld_varibad')
-    args, rest_args = parser.parse_known_args()
+def main(args):
     env = args.env_type
 
     # --- GridWorld ---
@@ -110,4 +117,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(args)

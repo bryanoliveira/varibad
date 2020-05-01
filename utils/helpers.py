@@ -9,7 +9,11 @@ import torch.nn as nn
 
 
 def get_device():
-    return torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    return torch.device(
+        "cuda:" + os.environ["GPU_ID"] 
+        if torch.cuda.is_available() and bool(int(os.environ['ENABLE_GPU']))
+        else "cpu"
+    )
 
 
 def env_step(envs, action):
