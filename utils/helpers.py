@@ -7,8 +7,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-device = get_device()
-
 
 def get_device():
     return torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -239,3 +237,6 @@ def update_mean_var_count_from_moments(mean, var, count, batch_mean, batch_var, 
     new_count = tot_count
 
     return new_mean, new_var, new_count
+
+
+device = get_device()
