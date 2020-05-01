@@ -5,6 +5,7 @@ __all__ = ['Monitor', 'get_monitor_files', 'load_results']
 
 import csv
 import json
+import os
 import os.path as osp
 import time
 from glob import glob
@@ -112,6 +113,7 @@ class ResultsWriter(object):
                     filename = osp.join(filename, Monitor.EXT)
                 else:
                     filename = filename + "." + Monitor.EXT
+            os.makedirs(os.path.dirname(filename), exist_ok=True) # create directory if it doesn't exist'
             self.f = open(filename, "wt")
             if isinstance(header, dict):
                 header = '# {} \n'.format(json.dumps(header))
