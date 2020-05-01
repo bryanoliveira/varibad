@@ -6,8 +6,9 @@ from torch.nn import functional as F
 from models.decoder import StateTransitionDecoder, RewardDecoder, TaskDecoder
 from models.encoder import RNNEncoder
 from utils.storage_vae import RolloutStorageVAE
+from utils import helpers as utl
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = utl.get_device()
 
 
 class VaribadVAE:

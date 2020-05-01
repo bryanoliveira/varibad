@@ -3,7 +3,9 @@ import random
 import numpy as np
 import torch
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+from utils import helpers as utl
+
+device = utl.get_device()
 
 from environments.mujoco.half_cheetah import HalfCheetahEnv
 

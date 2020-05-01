@@ -5,8 +5,9 @@ Used for on-policy rollout storages.
 """
 import torch
 from torch.utils.data.sampler import BatchSampler, SubsetRandomSampler
+from utils import helpers as utl
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = utl.get_device()
 
 
 def _flatten_helper(T, N, _tensor):

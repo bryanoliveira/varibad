@@ -11,7 +11,7 @@ from matplotlib.patches import Rectangle
 
 from utils import helpers as utl
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = utl.get_device()
 
 
 class GridNavi(gym.Env):
