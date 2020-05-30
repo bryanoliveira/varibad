@@ -20,6 +20,7 @@ os.environ["GPU_ID"] = str(args.gpu)
 
 
 # get configs
+from config.metaworld import args_metaworld_reach_varibad
 from config.gridworld import \
     args_grid_oracle, args_grid_belief_oracle, args_grid_rl2, args_grid_varibad
 from config.mujoco import \
@@ -33,6 +34,10 @@ from metalearner import MetaLearner
 
 def main(args):
     env = args.env_type
+
+    # --- MetaWorld ---
+    if env == 'ml1_reach_varibad':
+        args = args_metaworld_reach_varibad.get_args(rest_args)
 
     # --- GridWorld ---
 

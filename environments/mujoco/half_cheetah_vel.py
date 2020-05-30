@@ -24,10 +24,11 @@ class HalfCheetahVelEnv(HalfCheetahEnv):
         (https://homes.cs.washington.edu/~todorov/papers/TodorovIROS12.pdf)
     """
 
-    def __init__(self, max_episode_steps=200):
+    def __init__(self, max_episode_steps=200, out_of_distribution=False):
         self.set_task(self.sample_tasks(1)[0])
         self._max_episode_steps = max_episode_steps
         self.task_dim = 1
+        self.out_of_distribution = out_of_distribution
         super(HalfCheetahVelEnv, self).__init__()
 
     def step(self, action):
@@ -53,12 +54,17 @@ class HalfCheetahVelEnv(HalfCheetahEnv):
     def get_task(self):
         return self.goal_velocity
 
-    def sample_tasks(self, n_tasks):
+    def sample_tasks(self, n_tasks, test=False):
+        if self.out_of_distribution:
+            if test:
+                return [random.uniform(0.0, 2.0) for _ in range(n_tasks)]
+            else:
+                return [random.uniform(2.0, 3.0) for _ in range(n_tasks)]
         return [random.uniform(0.0, 3.0) for _ in range(n_tasks)]
 
-    def reset_task(self, task):
+    def reset_task(self, task, test=False):
         if task is None:
-            task = self.sample_tasks(1)[0]
+            task = self.sample_tasks(1, test)[0]
         self.set_task(task)
         # self.reset()
 

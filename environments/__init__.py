@@ -44,6 +44,22 @@ register(
             'max_episode_steps': 200},
     max_episode_steps=200
 )
+register(
+    'HalfCheetahVelOutOfDist-v0',
+    entry_point='environments.wrappers:mujoco_wrapper',
+    kwargs={'entry_point': 'environments.mujoco.half_cheetah_vel:HalfCheetahVelEnv',
+            'out_of_distribution': True,
+            'max_episode_steps': 200},
+    max_episode_steps=200
+)
+
+register(
+    'ml1-reach-v0',
+    entry_point='environments.wrappers:mujoco_wrapper',
+    kwargs={'entry_point': 'environments.metaworld.reach_ml1:ReachML1Env',
+            'out_of_distribution': True},
+    max_episode_steps=200
+)
 
 # - randomised dynamics
 
