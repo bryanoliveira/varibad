@@ -79,7 +79,7 @@ class VecNormalize(VecEnvWrapper):
             obs = self._obfilt(obs)
         else:
             try:
-                self.venv.remotes[index].send(('reset', {task, test}))
+                self.venv.remotes[index].send(('reset', {'task': task, 'test': test}))
                 obs = self.venv.remotes[index].recv()
             except AttributeError:
                 obs = self.venv.envs[index].reset(task=task, test=test)

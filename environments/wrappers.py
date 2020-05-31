@@ -68,7 +68,6 @@ class VariBadWrapper(gym.Wrapper):
         self.done_mdp = True
 
     def reset(self, task=None, test=False):
-
         # reset task
         try:
             # specify if we need test tasks, if supported

@@ -18,7 +18,10 @@ def worker(remote, parent_remote, env_fn_wrapper):
                 ob, reward, done, info = env.step(data)
                 remote.send((ob, reward, done, info))
             elif cmd == 'reset':
-                ob = env.reset()
+                if type(data) is dict:
+                    ob = env.reset(**data)
+                else:
+                    ob = env.reset()
                 remote.send(ob)
             elif cmd == 'reset_mdp':
                 ob = env.reset_mdp()
@@ -88,7 +91,7 @@ class SubprocVecEnv(VecEnv):
     def reset(self, task=None, test=False):
         self._assert_not_closed()
         for remote in self.remotes:
-            remote.send(('reset', {task, test}))
+            remote.send(('reset', {'task': task, 'test': test}))
         return np.stack([remote.recv() for remote in self.remotes])
 
     def close_extras(self):
