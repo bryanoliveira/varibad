@@ -81,10 +81,10 @@ class VecPyTorch(VecEnvWrapper):
             obs = torch.from_numpy(obs).float().to(self.device)
         return obs
 
-    def reset(self, index=None, task=None):
+    def reset(self, index=None, task=None, test=False):
         if task is not None:
             assert isinstance(task, list)
-        obs = self.venv.reset(index=index, task=task)
+        obs = self.venv.reset(index=index, task=task, test=test)
         if isinstance(obs, list):
             obs = [torch.from_numpy(o).float().to(self.device) for o in obs]
         else:

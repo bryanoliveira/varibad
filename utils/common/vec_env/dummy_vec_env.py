@@ -70,12 +70,12 @@ class DummyVecEnv(VecEnv):
             self._save_obs(e, obs)
         return self._obs_from_buf()
 
-    def reset(self, task=None):
+    def reset(self, task=None, test=False):
         for e in range(self.num_envs):
             if task is not None:
-                obs = self.envs[e].reset(task=task[e])
+                obs = self.envs[e].reset(task=task[e], test=test)
             else:
-                obs = self.envs[e].reset()
+                obs = self.envs[e].reset(test=test)
             self._save_obs(e, obs)
         return self._obs_from_buf()
 

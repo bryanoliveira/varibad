@@ -67,10 +67,15 @@ class VariBadWrapper(gym.Wrapper):
         # this tells us if we have reached the horizon in the underlying MDP
         self.done_mdp = True
 
-    def reset(self, task=None):
+    def reset(self, task=None, test=False):
 
         # reset task
-        self.env.reset_task(task)
+        try:
+            # specify if we need test tasks, if supported
+            self.env.reset_task(task, test)
+        except AttributeError:
+            print("no support")
+            self.env.reset_task(task)
 
         self.episode_count = 0
         self.step_count_bamdp = 0

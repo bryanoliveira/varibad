@@ -12,7 +12,7 @@ def get_args(rest_args):
 
     # training parameters
     parser.add_argument('--num_frames', type=int, default=1e8, help='number of frames to train')
-    parser.add_argument('--max_rollouts_per_task', type=int, default=2)
+    parser.add_argument('--max_rollouts_per_task', type=int, default=10)
 
     # variBAD
     parser.add_argument('--exp_label', default='varibad', help='label for the experiment')
@@ -56,10 +56,10 @@ def get_args(rest_args):
                         help='value loss coefficient (default: 0.5)')
     parser.add_argument('--policy_entropy_coef', type=float, default=0.01,
                         help='entropy term coefficient (default: 0.01)')
-    parser.add_argument('--policy_gamma', type=float, default=0.97, help='discount factor for rewards (default: 0.99)')
+    parser.add_argument('--policy_gamma', type=float, default=0.99, help='discount factor for rewards (default: 0.99)')
     parser.add_argument('--policy_use_gae', type=boolean_argument, default=True,
                         help='use generalized advantage estimation')
-    parser.add_argument('--policy_tau', type=float, default=0.9, help='gae parameter (default: 0.95)')
+    parser.add_argument('--policy_tau', type=float, default=0.95, help='gae parameter (default: 0.95)')
     parser.add_argument('--use_proper_time_limits', type=boolean_argument, default=True)
     parser.add_argument('--policy_max_grad_norm', type=float, default=0.5, help='max norm of gradients (default: 0.5)')
 

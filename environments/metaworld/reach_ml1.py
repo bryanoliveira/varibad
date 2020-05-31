@@ -19,8 +19,8 @@ class ReachML1Env(gym.Env):
         self.current_task_idx = 0
         self.episode_steps = 0
         self._max_episode_steps = max_episode_steps
-        self.get_tasks_goals()
-        self.reset_task(0)
+        # self.get_tasks_goals()
+        # self.reset_task()
 
     def step(self, action):
         self.episode_steps += 1
@@ -47,11 +47,17 @@ class ReachML1Env(gym.Env):
         self._goal = self.tasks[idx]['goal']
 
     def get_task(self):
-        return self.tasks[self.current_task_idx]['goal_pos']
+        return self.tasks[self.current_task_idx]['goal'] # goal_pos
 
-    def reset_task(self, idx=None):
+    def reset_task(self, idx=None, test=False):
+        # aparently this is called only without idx, so tasks are always scrambled
+        # we have to set anything only at test time
+        print('test reset: ', test)
         if idx is None:
-            idx = self.current_task_idx
+            if test:
+                idx = randint(len(self.train_tasks), len(self.tasks) - 1)
+            else:
+                idx = randint(0, len(self.train_tasks) - 1)
         self.set_task(idx)
 
     def render(self):

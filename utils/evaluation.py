@@ -43,7 +43,7 @@ def evaluate(args,
     num_steps = envs._max_episode_steps
 
     # reset environments
-    (obs_raw, obs_normalised) = envs.reset()
+    (obs_raw, obs_normalised) = envs.reset(test=True)
     obs_raw = obs_raw.to(device)
     obs_normalised = obs_normalised.to(device)
 
@@ -89,7 +89,7 @@ def evaluate(args,
                 # count task up, but cap at num_episodes + 1
                 task_count[i] = min(task_count[i] + 1, num_episodes)  # zero-indexed, so no +1
             for i in np.argwhere(done).flatten():
-                [obs_raw[i], obs_normalised[i]] = envs.reset(index=i)
+                [obs_raw[i], obs_normalised[i]] = envs.reset(index=i, test=True)
 
     envs.close()
 
@@ -198,7 +198,7 @@ def get_test_rollout(args, env, policy, encoder=None):
     # --- roll out policy ---
 
     # (re)set environment
-    [obs_raw, obs_normalised] = env.reset()
+    [obs_raw, obs_normalised] = env.reset(test=True)
     obs_raw = obs_raw.reshape((1, -1)).to(device)
     obs_normalised = obs_normalised.reshape((1, -1)).to(device)
 

@@ -85,10 +85,10 @@ class SubprocVecEnv(VecEnv):
         obs, rews, dones, infos = zip(*results)
         return np.stack(obs), np.stack(rews), np.stack(dones), infos
 
-    def reset(self, task=None):
+    def reset(self, task=None, test=False):
         self._assert_not_closed()
         for remote in self.remotes:
-            remote.send(('reset', task))
+            remote.send(('reset', {task, test}))
         return np.stack([remote.recv() for remote in self.remotes])
 
     def close_extras(self):
