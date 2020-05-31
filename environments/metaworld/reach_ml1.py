@@ -5,7 +5,7 @@ from metaworld.benchmarks import ML1
 
 class ReachML1Env(gym.Env):
 
-    def __init__(self, max_episode_steps=149,out_of_distribution=False, n_train_tasks=50, n_test_tasks=10, **kwargs):
+    def __init__(self, max_episode_steps=150,out_of_distribution=False, n_train_tasks=50, n_test_tasks=10, **kwargs):
         super(ReachML1Env, self).__init__()
         self.train_env = ML1.get_train_tasks('reach-v1', out_of_distribution=out_of_distribution)
         self.test_env = ML1.get_test_tasks('reach-v1', out_of_distribution=out_of_distribution)
@@ -49,15 +49,15 @@ class ReachML1Env(gym.Env):
     def get_task(self):
         return self.tasks[self.current_task_idx]['goal'] # goal_pos
 
-    def reset_task(self, idx=None, test=False):
+    def reset_task(self, task=None, test=False):
         # aparently this is called only without idx, so tasks are always scrambled
         # we have to set anything only at test time
-        if idx is None:
+        if task is None:
             if test:
-                idx = randint(len(self.train_tasks), len(self.tasks) - 1)
+                task = randint(len(self.train_tasks), len(self.tasks) - 1)
             else:
-                idx = randint(0, len(self.train_tasks) - 1)
-        self.set_task(idx)
+                task = randint(0, len(self.train_tasks) - 1)
+        self.set_task(task)
 
     def render(self):
         self.env.render()
