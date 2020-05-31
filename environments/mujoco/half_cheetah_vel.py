@@ -25,10 +25,10 @@ class HalfCheetahVelEnv(HalfCheetahEnv):
     """
 
     def __init__(self, max_episode_steps=200, out_of_distribution=False):
-        self.set_task(self.sample_tasks(1)[0])
         self._max_episode_steps = max_episode_steps
         self.task_dim = 1
         self.out_of_distribution = out_of_distribution
+        self.set_task(self.sample_tasks(1)[0])
         super(HalfCheetahVelEnv, self).__init__()
 
     def step(self, action):
@@ -62,7 +62,9 @@ class HalfCheetahVelEnv(HalfCheetahEnv):
                 return [random.uniform(2.0, 3.0) for _ in range(n_tasks)]
         return [random.uniform(0.0, 3.0) for _ in range(n_tasks)]
 
-    def reset_task(self, task, test=False):
+    def reset_task(self, task=None, test=False):
+        if test:
+            print('\n\nTESTING\n\n')
         if task is None:
             task = self.sample_tasks(1, test)[0]
         self.set_task(task)

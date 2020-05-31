@@ -74,7 +74,8 @@ class VariBadWrapper(gym.Wrapper):
             # specify if we need test tasks, if supported
             self.env.reset_task(task, test)
         except AttributeError:
-            print("no support")
+            if test:
+                print("No support for test task signaling!")
             self.env.reset_task(task)
 
         self.episode_count = 0

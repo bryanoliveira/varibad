@@ -52,7 +52,6 @@ class ReachML1Env(gym.Env):
     def reset_task(self, idx=None, test=False):
         # aparently this is called only without idx, so tasks are always scrambled
         # we have to set anything only at test time
-        print('test reset: ', test)
         if idx is None:
             if test:
                 idx = randint(len(self.train_tasks), len(self.tasks) - 1)

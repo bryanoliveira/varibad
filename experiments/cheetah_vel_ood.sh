@@ -1,0 +1,1 @@
+python main.py --env-type mujoco_cheetah_vel_varibad --env_name HalfCheetahVelOutOfDist-v0 
